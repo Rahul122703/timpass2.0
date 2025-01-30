@@ -2,8 +2,11 @@ import React from "react";
 import SearchForm from "./SearchForm";
 import Stories from "./Stories";
 import Buttons from "./Buttons";
+import Login from "./components/ForgotPassword";
 function App() {
-  return <div className="flex flex-col border border-black">hey this is code sprint project</div>;
+  return <div>
+    <Login/>
+  </div>;
 }
 
 export default App;
