@@ -1,23 +1,27 @@
-import express from 'express'
-import connectDB from './config/db.js'
-import 'dotenv/config'
-const app = express()
-const port = process.env.PORT || 3001
-connectDB()
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const userRoutes = require('./routes/userRoutes');
+const complaintRoutes = require('./routes/complaintRoutes');
+const workRoutes = require('./routes/workRoutes');
+const connectDB = require('./config/db'); 
 
-app.use(express.json())
-// app.use(cors())
+// Call the database connection function
+connectDB(); 
 
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-// app.use('/api/user', userRouter)
-// app.use('/api/product', productRouter)
-// app.use('/api/cart',cartRouter)
-// app.use('/api/order',orderRouter)
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Api Working')
-})
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/complaints', complaintRoutes);
+app.use('/api/works', workRoutes);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
-})
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
